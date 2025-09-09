@@ -1,7 +1,7 @@
 import requests
 import os
 from aws_lambda_powertools import Logger, Tracer
-from .formatter import format_response
+from .formatter import format_response, normalize_location
 from src.utils.time_utils import format_time_int_to_iso
 
 logger = Logger(service="digitransit-service")
@@ -21,19 +21,12 @@ def get_stop_coords(location: str):
     Fetch the latitude and longitude coordinates for a station by name.
 
     Args:
-        location (str): Name of the stop/station (e.g., "Helsinki", "Central Station").
+        location (str): Name of the station (e.g., "Helsinki", "Central Station").
 
     Returns:
-        dict: Dictionary containing the stop's coordinates:
-            {
-                "lat": float,   # latitude of the stop
-                "long": float   # longitude of the stop
-            }
-
-    Raises:
-        requests.HTTPError: If the GraphQL API request fails.
-        KeyError/IndexError: If no matching station is found in the response.
+        dict: Dictionary containing the stop's coordinates.
     """
+    location = normalize_location(location)
     query = f"""
     {{
       stations(name: "{location}") {{
@@ -62,29 +55,7 @@ def get_routes(start: str, stop: str, time: int):
                    Example: 20250909143000
 
    Returns:
-       dict: Formatted response containing available routes, structured as:
-           {
-               "routes": [
-                   {
-                       "start": ...,
-                       "end": ...,
-                       "legs": [
-                           {
-                               "mode": str,
-                               "from": str,
-                               "to": str,
-                               "routeShortName": str
-                           },
-                           ...
-                       ]
-                   },
-                   ...
-               ]
-           }
-
-   Raises:
-       requests.HTTPError: If the GraphQL API request fails.
-       Exception: If response formatting/parsing fails.
+       dict: Formatted response containing available routes
    """
     start_coords = get_stop_coords(start)
     stop_coords = get_stop_coords(stop)

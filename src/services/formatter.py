@@ -1,4 +1,5 @@
 from src.utils.time_utils import format_iso_to_time_int
+import re
 
 def format_response(response: dict) -> list:
     """
@@ -26,3 +27,17 @@ def format_response(response: dict) -> list:
 
         suggested_routes.append(suggested_route)
     return suggested_routes
+
+
+def normalize_location(location: str) -> str:
+    """
+    Normalize location name for GraphQL queries:
+    - Trim leading/trailing spaces
+    - Collapse internal whitespace into single '-'
+
+    Example:
+        " central station  " -> "central-station"
+    """
+    cleaned = location.strip()
+    cleaned = re.sub(r"\s+", "-", cleaned)
+    return cleaned
