@@ -2,7 +2,7 @@ import requests
 import os
 from aws_lambda_powertools import Logger, Tracer
 from .formatter import format_response, normalize_location
-from src.utils.time_utils import format_time_int_to_iso
+from utils.time_utils import format_time_int_to_iso
 
 logger = Logger(service="digitransit-service")
 tracer = Tracer(service="digitransit-service")

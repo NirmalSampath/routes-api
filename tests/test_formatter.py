@@ -37,8 +37,8 @@ def test_format_response_basic():
     assert len(result) == 1
 
     route = result[0]
-    assert route["start_time"] == "2025-09-09T08:00:00+03:00"
-    assert route["end_time"] == "2025-09-09T08:30:00+03:00"
+    assert route["start_time"] == 20250909080000
+    assert route["end_time"] == 20250909083000
     assert len(route["legs"]) == 2
 
     first_leg = route["legs"][0]

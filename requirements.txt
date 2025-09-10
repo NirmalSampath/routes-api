@@ -1,5 +1,0 @@
-aws-lambda-powertools[all]
-requests
-pytest
-pytest-cov
-oci-cli

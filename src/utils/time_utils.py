@@ -12,13 +12,19 @@ def format_time_int_to_iso(dt_int: int, tz_offset: int = 3) -> str:
     return formatted[:-2] + ":" + formatted[-2:]
 
 
-def format_iso_to_time_int(iso_str: str) -> int:
+def format_iso_to_time_int(iso_str: str) -> int | None:
     """
     Convert ISO 8601 datetime with timezone into yyyymmddHHMMSS (int).
     Example: "2025-09-09T14:30+03:00" -> 20250909143000
+    Returns None if iso_str is None or invalid.
     """
-    # Parse ISO string into datetime
-    dt = datetime.fromisoformat(iso_str)
+    if not iso_str:
+        return None
 
-    # Format back to yyyymmddHHMMSS
-    return int(dt.strftime("%Y%m%d%H%M%S"))
+    try:
+        # Parse ISO string into datetime
+        dt = datetime.fromisoformat(iso_str)
+        # Format back to yyyymmddHHMMSS
+        return int(dt.strftime("%Y%m%d%H%M%S"))
+    except ValueError:
+        return None

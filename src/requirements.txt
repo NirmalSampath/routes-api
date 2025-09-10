@@ -1,0 +1,5 @@
+aws-lambda-powertools
+requests
+aws-xray-sdk
+aws-cdk.core
+constructs

@@ -90,8 +90,8 @@ def test_get_routes_with_mocked_stop_coords_and_graphql(monkeypatch):
     assert len(result) == 1
 
     route = result[0]
-    assert route["start_time"] == "2025-09-09T08:20:00+03:00"
-    assert route["end_time"] == "2025-09-09T08:40:00+03:00"
+    assert route["start_time"] == 20250909082000
+    assert route["end_time"] == 20250909084000
     assert len(route["legs"]) == 2
     assert route["legs"][0]["mode"] == "WALK"
     assert route["legs"][1]["mode"] == "METRO"

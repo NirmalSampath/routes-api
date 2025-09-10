@@ -4,4 +4,4 @@ cdk.out/
 template.yaml
 commands.txt
 */__pycache__/
-.idea
+.idea/

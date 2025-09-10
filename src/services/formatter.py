@@ -1,4 +1,4 @@
-from src.utils.time_utils import format_iso_to_time_int
+from utils.time_utils import format_iso_to_time_int
 import re
 
 def format_response(response: dict) -> list:
