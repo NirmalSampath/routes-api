@@ -43,6 +43,6 @@ def handler(event, context):
         }
 
     except Exception as e:
-        logger.exception("Error fetching routes")
+        logger.exception(f"Error fetching routes: {str(e)}")
         metrics.add_metric("ItineraryQueryFailure", unit=MetricUnit.Count, value=1)
         return {"statusCode": 500, "body": json.dumps({"error": str(e)})}

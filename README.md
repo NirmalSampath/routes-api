@@ -1,19 +1,19 @@
 # Itinerary API (AWS CDK + Lambda + API Gateway)
 
-This project deploys an AWS Lambda function behind an API Gateway using the AWS Cloud Development Kit (CDK).  
-The Lambda function integrates with the [Digitransit API](https://digitransit.fi/en/developers/) for route planning.
+This project deploys an AWS Lambda function behind an API Gateway using the AWS Cloud Development Kit (CDK).
+The Lambda function integrates with the Digitransit API
+ to provide route planning functionality.
 
 ---
 
 ## Prerequisites
 
-- **AWS Account** with programmatic access (Access Key + Secret Key)  
-- **AWS CLI** installed → [Install guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)  
-- **AWS CDK v2** installed →  
+- **AWS Account** & programmatic access credentials (Access Key + Secret Key)  
+- **AWS CLI** installed → [Install guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
   ```bash
   npm install -g aws-cdk
   ```
-- **Python 3.12** installed with `pip`
+- **Python 3.12** installed with **pip**
 
 ---
 
@@ -39,24 +39,15 @@ $env:AWS_REGION="<your_region>"
 ---
 
 ### 2. Update Digitransit API Key  
-In `infra/stack.py`, update the environment variable with your Digitransit API key:
+Create `.env` in the root and, add the environment variable with your Digitransit API key:
 
 ```python
-environment={
-    "DIGITRANSIT_API_KEY": "<your_digitransit_api_key>"
-}
+"DIGITRANSIT_API_KEY": "<your_digitransit_api_key>"
 ```
 
 ---
 
-### 3. Install dependencies
-```bash
-pip install -r requirements.txt
-```
-
----
-
-### 4. Bootstrap your AWS environment  
+### 3. Bootstrap your AWS environment  
 CDK requires bootstrapping before the first deploy:
 
 ```bash
@@ -65,7 +56,7 @@ cdk bootstrap aws://<aws_account_id>/<aws_region>
 
 ---
 
-### 5. Synthesize the CloudFormation template  
+### 4. Synthesize the CloudFormation template  
 This command generates the CloudFormation template from your CDK code:
 
 ```bash
@@ -94,11 +85,17 @@ Example:
 Outputs:
 ItineraryStack.ItineraryApiEndpoint = https://<api_id>.execute-api.<region>.amazonaws.com/prod/
 ```
+**Fetch the API Key using the following aws cli command or from the aws console**
+
+```
+aws apigateway get-api-keys --include-values --region <your_aws_region>
+```
+
 
 Test it with:
 
 ```bash
-curl "https://<api_id>.execute-api.<region>.amazonaws.com/prod/routes?start=123&stop=456"
+curl "https://<api_id>.execute-api.<region>.amazonaws.com/prod/routes?start=Aalto-Yliopisto&stop=Keilaniemi&time=20250912084500"
 ```
 
 ---

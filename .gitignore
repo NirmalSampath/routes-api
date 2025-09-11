@@ -5,3 +5,6 @@ template.yaml
 commands.txt
 */__pycache__/
 .idea/
+.env
+.coverage
+.coveragerc
