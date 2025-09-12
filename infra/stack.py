@@ -35,6 +35,8 @@ class ItineraryStack(Stack):
         api = apigw.LambdaRestApi(
             self, "ItineraryApi",
             handler=lambda_fn,
+            deploy_options=apigw.StageOptions(
+                tracing_enabled=True),
             proxy=False
         )
 
